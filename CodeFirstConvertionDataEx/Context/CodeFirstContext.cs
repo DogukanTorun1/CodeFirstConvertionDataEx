@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,8 @@ namespace CodeFirstConvertionDataEx.Context
 {
     public class CodeFirstContext : DbContext
     {
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Employment> Employments { get; set; }
-
+        public DbSet<User> Users { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             
@@ -24,10 +24,11 @@ namespace CodeFirstConvertionDataEx.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>()
-                .HasOne(e => e.Employment)
-                .WithOne(e => e.Employee)
-                .HasForeignKey<Employment>(e => e.EmployeeId);
+            modelBuilder.Entity<User>()
+            .HasOne(a => a.Profile)
+            .WithOne(a => a.User)
+            .HasForeignKey<Profile>(a => a.Id);
+
         }
 
 
