@@ -13,5 +13,10 @@ namespace CodeFirstConvertionDataEx.Entities
         public string UserName { get; set; }
         public Profile Profile { get; set; }
 
+        override public string ToString()
+        {
+            return UserName;
+        }
+
     }
 }
