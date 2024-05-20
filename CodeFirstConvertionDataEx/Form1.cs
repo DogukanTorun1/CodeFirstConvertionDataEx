@@ -21,11 +21,6 @@ namespace CodeFirstConvertionDataEx
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            getUserName();
-        }
-
         private void btnUserAdd_Click(object sender, EventArgs e)
         {
             User user = new User();
@@ -48,15 +43,25 @@ namespace CodeFirstConvertionDataEx
             Profile profile = new Profile();
             profile.Bio = txtBio.Text;
             profile.User = db.Users.FirstOrDefault(x => x.UserName == cmbUserName.Text);
-            db.Profiles.Add(profile);
-            int result = db.SaveChanges();
-            if (result > 0)
+
+
+
+            if (db.Profiles.Find(profile.User.Id) == null)
             {
-                MessageBox.Show("Profile Added");
+                db.Profiles.Add(profile);
+                int result = db.SaveChanges();
+                if (result > 0)
+                {
+                    MessageBox.Show("Profile Added");
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
             }
             else
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Profile already exists");
             }
         }
 
